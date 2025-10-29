@@ -58,6 +58,16 @@
     }
     .footer{font-size:.9rem;color:#5f6368;margin-top:12px;text-align:center}
     @media(max-width:600px){h1{font-size:1.4rem}}
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -151,6 +161,7 @@
       };
       resultBox.style.display='block';
       resultBox.style.borderLeft=`6px solid ${(palette[winner])}`;
+      resultBox.style.animation='fadeIn 2s forwards'
       resultBox.innerHTML=`
         <h2 style="margin-top:0">${titles[winner]}</h2>
         <p>${texts[winner]}</p>
