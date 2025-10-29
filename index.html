@@ -150,7 +150,7 @@
         it:"💻 Du passer for IT-faget!"
       };
       resultBox.style.display='block';
-      resultBox.style.borderLeft=`6px solid ${getComputedStyle(document.documentElement).getPropertyValue(palette[winner])}`;
+      resultBox.style.borderLeft=`6px solid ${(palette[winner])}`;
       resultBox.innerHTML=`
         <h2 style="margin-top:0">${titles[winner]}</h2>
         <p>${texts[winner]}</p>
