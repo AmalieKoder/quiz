@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="no">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finn ditt fag – RIASEC-quiz</title>
+  <style>
+    :root{
+      --blue:#1a73e8;
+      --orange:#ff7a21;
+      --teal:#16a085;
+      --bg:#f6f7fb;
+      --card:#fff;
+      --text:#202124;
+    }
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,Inter,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{
+        max-width:860px;
+        margin:32px auto;
+        padding:16px
+    }
+    header{
+        text-align:center;
+        margin-bottom:24px;
+    }
+    h1{
+        font-size:1.8rem;
+        margin:0 0 8px;
+        color:var(--orange);
+    }
+    p.lead{margin:0;color:#5f6368}
+    .card{
+        background:var(--card);
+        border-radius:16px;
+        box-shadow:0 4px 20px rgba(0,0,0,.06);
+        padding:20px;
+        margin-bottom:20px;
+        border-left: 2px solid var(--orange);
+    }
+    .q{font-weight:600;margin-bottom:6px}
+    label{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:10px 12px;border:1px solid #e0e0e0;border-radius:12px;background:#fff;cursor:pointer}
+    label:hover{border-color:var(--orange)}
+    input[type=radio]{margin-top:2px}
+    button{appearance:none;border:0;border-radius:12px;padding:12px 18px;font-weight:600;cursor:pointer;background:var(--blue);color:#fff}
+    button:hover{background:#ff7a21}
+    .result{display:none;background:var(--card);border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+    .footer{font-size:.9rem;color:#5f6368;margin-top:12px;text-align:center}
+    @media(max-width:600px){h1{font-size:1.4rem}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="/glode-logo.png" alt="">
+      <h1>Finn ditt fag – ta quizen!</h1>
+      <p class="lead">Svar på 6 spørsmål og finn ut hvilket fag som passer deg best.</p>
+    </header>
+
+    <form id="quiz">
+      <div class="card">
+        <div class="q">1. Hva gjør deg mest fornøyd?</div>
+        <label><input type="radio" name="q1" value="kokk"> Når jeg lager eller skaper noe konkret</label>
+        <label><input type="radio" name="q1" value="log"> Når jeg får ting til å fungere og hjelper andre</label>
+        <label><input type="radio" name="q1" value="it"> Når jeg finner ut av hvordan ting virker eller løser et problem</label>
+      </div>
+
+      <div class="card">
+        <div class="q">2. Hvordan liker du best å jobbe?</div>
+        <label><input type="radio" name="q2" value="kokk"> Med hendene og sansene, der jeg ser resultater</label>
+        <label><input type="radio" name="q2" value="log"> Med planlegging, struktur og samarbeid</label>
+        <label><input type="radio" name="q2" value="it"> Selvstendig og analytisk – jeg liker å bruke PC og logikk</label>
+      </div>
+
+      <div class="card">
+        <div class="q">3. Hva slags arbeidsmiljø passer deg best?</div>
+        <label><input type="radio" name="q3" value="kokk"> Et aktivt og praktisk miljø, gjerne kjøkken eller verksted</label>
+        <label><input type="radio" name="q3" value="log"> Et organisert miljø der ting skal flyte og koordineres</label>
+        <label><input type="radio" name="q3" value="it"> Et digitalt miljø, foran PC eller med teknologi</label>
+      </div>
+
+      <div class="card">
+        <div class="q">4. Hva beskriver deg best?</div>
+        <label><input type="radio" name="q4" value="kokk"> Kreativ, praktisk og løsningsorientert</label>
+        <label><input type="radio" name="q4" value="log"> Ryddig, pålitelig og samarbeidsvillig</label>
+        <label><input type="radio" name="q4" value="it"> Nysgjerrig, logisk og teknisk interessert</label>
+      </div>
+
+      <div class="card">
+        <div class="q">5. Hva motiverer deg mest?</div>
+        <label><input type="radio" name="q5" value="kokk"> Å lage noe folk kan bruke eller oppleve</label>
+        <label><input type="radio" name="q5" value="log"> Å få ting til å fungere effektivt sammen med andre</label>
+        <label><input type="radio" name="q5" value="it"> Å forstå systemer og finne smarte løsninger</label>
+      </div>
+
+      <div class="card">
+        <div class="q">6. Hva kunne du tenke deg å lære mer om?</div>
+        <label><input type="radio" name="q6" value="kokk"> Mat, smak og håndverk</label>
+        <label><input type="radio" name="q6" value="log"> Flyt, planlegging og logistikk</label>
+        <label><input type="radio" name="q6" value="it"> IT, data og problemløsing</label>
+      </div>
+
+      <div style="text-align:center;margin:24px 0">
+        <button type="submit">Se resultat</button>
+      </div>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <div class="footer">
+      <small>Basert på RIASEC-modellen • Laget for stand-bruk • © Finn ditt fag</small>
+      <p style="font-size:0.85rem;color:#5f6368;margin-top:12px">
+        🔒 Denne quizen lagrer ingen svar eller personopplysninger. Alt skjer lokalt på enheten din.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const form=document.getElementById('quiz');
+    const resultBox=document.getElementById('result');
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const score={kokk:0,log:0,it:0};
+      for(let i=1;i<=6;i++){
+        const ans=form.querySelector(`input[name="q${i}"]:checked`);
+        if(!ans){alert("Svar på alle spørsmål før du ser resultatet.");return;}
+        score[ans.value]++;
+      }
+      const winner=Object.keys(score).reduce((a,b)=>score[a]>score[b]?a:b);
+      const palette={kokk:"var(--orange)",log:"var(--blue)",it:"var(--teal)"};
+      const texts={
+        kokk:"Du liker å skape og jobbe praktisk – du får energi av å bruke hendene og kreativiteten din. Kokkefaget handler om smak, tempo og håndverk.",
+        log:"Du liker struktur, system og samarbeid – du får ting til å flyte. Logistikkfaget handler om planlegging, orden og samspill.",
+        it:"Du liker teknologi og å forstå hvordan ting fungerer. IT-faget passer deg som er nysgjerrig, logisk og liker å løse problemer."
+      };
+      const titles={
+        kokk:"👨‍🍳 Du passer for kokkefaget!",
+        log:"🚛 Du passer for logistikkfaget!",
+        it:"💻 Du passer for IT-faget!"
+      };
+      resultBox.style.display='block';
+      resultBox.style.borderLeft=`6px solid ${getComputedStyle(document.documentElement).getPropertyValue(palette[winner])}`;
+      resultBox.innerHTML=`
+        <h2 style="margin-top:0">${titles[winner]}</h2>
+        <p>${texts[winner]}</p>
+        <p><strong>Dine poeng:</strong> 👨‍🍳 ${score.kokk} · 🚛 ${score.log} · 💻 ${score.it}</p>
+        <p>Takk for at du tok quizen! Les mer på <a href="https://www.vilbli.no" target="_blank" rel="noopener">vilbli.no</a>.</p>
+        <div style="margin-top:12px"><button onclick="window.location.reload()">Ta quizen på nytt</button></div>`;
+      resultBox.scrollIntoView({behavior:"smooth"});
+    });
+  </script>
+</body>
+</html>
