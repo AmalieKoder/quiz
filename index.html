@@ -10,8 +10,8 @@
       --blue:#1a73e8;
       --orange:#ff7a21;
       --teal:#16a085;
-      --bg:#f6f7fb;
-      --card:#fff;
+      --bg:#927675;
+      --card:#b49594;
       --text:#202124;
     }
     body{
@@ -34,7 +34,11 @@
         margin:0 0 8px;
         color:var(--orange);
     }
-    p.lead{margin:0;color:#5f6368}
+    p.lead{
+      margin:0;
+      color:#5f6368;
+      text-shadow: 1px 1px 5px #fff;
+    }
     .card{
         background:var(--card);
         border-radius:16px;
@@ -44,11 +48,11 @@
         border-left: 2px solid var(--orange);
     }
     .q{font-weight:600;margin-bottom:6px}
-    label{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:10px 12px;border:1px solid #e0e0e0;border-radius:12px;background:#fff;cursor:pointer}
+    label{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;padding:10px 12px;border:1px solid #b49594;border-radius:12px;background:#8f7777;cursor:pointer}
     label:hover{border-color:var(--orange)}
     input[type=radio]{margin-top:2px}
-    button{appearance:none;border:0;border-radius:12px;padding:12px 18px;font-weight:600;cursor:pointer;background:var(--blue);color:#fff}
-    button:hover{background:#ff7a21}
+    button{appearance:none;border:0;border-radius:12px;padding:12px 18px;font-weight:600;cursor:pointer;background:var(--orange);color:#fff}
+    button:hover{background:var(--blue)}
     .result{
         display:none;
         background:var(--card);
